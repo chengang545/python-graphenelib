@@ -41,6 +41,14 @@ producer_name                = "init0"
 # http://help.quandl.com/article/118-how-do-i-pass-along-my-user-id-or-api-key
 quandlApiKey = "Feed_Key" # add your key here
 
+#~ # Acquire a OpenExchange API Key from:
+#~ # https://openexchangerates.org
+#~ OpenExchangeApiKey = "Feed_Key"
+
+#~ # Acquire a CurrencyLayer API Key from:
+#~ # https://currencylayer.com
+#~ CurrencyLayerApiKey = "Feed_Key"
+
 ################################################################################
 # Publishing Criteria
 ################################################################################
@@ -89,10 +97,13 @@ asset_config = {"default" : {  # DEFAULT BEHAVIOR
                                  "yahoo",     # To get from USD/CNY/EUR into other FIAT currencies
                                  "quandl",
                                  "google",
+                                 #"fixer",
+                                 #"currencylayer",
                                  # BTC/BTS exchanges (include BTC/* if available)
                                  "poloniex",
                                  "bittrex",
                                  "btc38",
+                                 "bter",
                                  "yunbi",
                                  "bitshares",
                                  # ## BTC/* exchanges
@@ -121,6 +132,7 @@ asset_config = {"default" : {  # DEFAULT BEHAVIOR
                     "sources" : ["poloniex",
                                  "bittrex",
                                  "btc38",
+                                 "bter",
                                  "yunbi",
                                  ],
                 },
@@ -144,6 +156,7 @@ asset_config = {"default" : {  # DEFAULT BEHAVIOR
                                  "yunbi",
                                  "huobi",
                                  "btcchina",
+                                 "bter",
                                  "okcoin",
                                  ]
                 },
@@ -244,11 +257,38 @@ feedSources["quandl"]    = feedsources.Quandl(datasets={  # Provide a valid API 
                                                   "GOLD:USD": [
                                                       "WGC/GOLD_DAILY_USD",
                                                       "LBMA/GOLD",
-                                                      "PERTH/GOLD_USD_D"
+                                                      #"PERTH/GOLD_USD_D"
+                                                      ],
+                                                  "GOLD:CNY": [
+                                                      "WGC/GOLD_DAILY_CNY"
                                                       ],
                                                   "SILVER:USD": [
                                                       "LBMA/SILVER",
-                                                      "PERTH/SLVR_USD_D"
+                                                      #"PERTH/SLVR_USD_D"
+                                                      ],
+                                                  "AUD:CNY": [
+                                                      "RBA/FXRCR"
+                                                      ],
+                                                  "AUD:USD": [
+                                                      "RBA/FXRUSD"
+                                                      ],
+                                                  "EUR:AUD": [
+                                                      "ECB/EURAUD"
+                                                      ],
+                                                  "EUR:CNY": [
+                                                      "ECB/EURCNY"
+                                                      ],
+                                                  "EUR:GBP": [
+                                                      "ECB/EURGBP"
+                                                      ],
+                                                  "EUR:HKD": [
+                                                      "ECB/EURHKD"
+                                                      ],
+                                                  "EUR:JPY": [
+                                                      "ECB/EURJPY"
+                                                      ],
+                                                  "EUR:USD": [
+                                                      "ECB/EURUSD"
                                                       ]
                                                   }
                                               )
@@ -256,7 +296,7 @@ feedSources["quandl"]    = feedsources.Quandl(datasets={  # Provide a valid API 
 feedSources["bitshares"] = feedsources.Graphene(allowFailure=True,
                                                 quotes=["BTS"],
                                                 bases=["USD"],
-                                                witness_url="wss://altcap.io/ws",
+                                                witness_url="wss://bitshares.openledger.info/ws",
                                                 wallet_host=host,
                                                 wallet_port=port)
 
@@ -265,28 +305,28 @@ feedSources["okcoin"]   = feedsources.Okcoin(allowFailure=True, quotes=["BTC"], 
 feedSources["huobi"]    = feedsources.Huobi(allowFailure=True, quotes=["BTC"], bases=["CNY"])
 
 # feedSources["ccedk"]    = feedsources.Ccedk(allowFailure=True, quotes=["BTS"], bases=["BTC", "USD", "EUR", "CNY"])
-# feedSources["openexchangerates"] = feedsources.OpenExchangeRates(api_key="",
-#                                                                  free_subscription=True,
-#                                                                  allowFailure=True,
-#                                                                  quotes=["ARS", "BTC", "EUR", "JPY"], # more available
-#                                                                  bases=["USD"]) # only USD with free subscription
-# feedSources["currencylayer"] = feedsources.CurrencyLayer(api_key="",
-#                                                                  free_subscription=True,
-#                                                                  allowFailure=True,
-#                                                                  quotes=["ARS", "BTC", "EUR", "JPY"], # more available
-#                                                                  bases=["USD"]) # only USD with free subscription
+#~ feedSources["openexchangerates"] = feedsources.OpenExchangeRates(api_key=OpenExchangeApiKey,
+                                                                  #~ free_subscription=True,
+                                                                  #~ allowFailure=True,
+                                                                  #~ quotes=["BTC", "CNY", "EUR", "GBP", "JPY"], # more available
+                                                                  #~ bases=["USD"]) # only USD with free subscription
+#~ feedSources["currencylayer"] = feedsources.CurrencyLayer(api_key=CurrencyLayerApiKey,
+                                                                  #~ free_subscription=True,
+                                                                  #~ allowFailure=True,
+                                                                  #~ quotes=["BTC", "CNY", "EUR", "GBP", "JPY"], # , "XAU", "XAG" more available
+                                                                  #~ bases=["USD"]) # only USD with free subscription
 feedSources["coinmarketcap"]    = feedsources.CoinmarketcapAltcap(quotes=["ALTCAP"],
                                                                   bases=["BTC", "BTS"],
                                                                   allowFailure=True)
 feedSources["coincap"]    = feedsources.CoincapAltcap(quotes=["ALTCAP"],
                                                       bases=["BTC", "BTS"],
                                                       allowFailure=True)
-# feedSources["fixer"] = feedsources.Fixer(allowFailure=True, quotes=["EUR", "JPY", "SEK", "CNY"], bases=["EUR", "USD", "CNY"]) # more available
+# feedSources["fixer"] = feedsources.Fixer(allowFailure=True, quotes=["EUR", "GBP", "CNY", "USD"], bases=["EUR", "GBP", "USD"]) # more available
 # feedSources["bitcoinvenezuela"] = feedsources.BitcoinVenezuela(allowFailure=True, quotes=["EUR", "USD", "VEF", "ARS", "BTC", "LTC"], bases=["BTC", "LTC", "USD"])
 # feedSources["btcid"]    = feedsources.BitcoinIndonesia(allowFailure=True, quotes=["BTS"], bases=["BTC"])
 # feedSources["bter"]     = feedsources.Bter(allowFailure=True, quotes=["BTC", "BTS"], bases=["BTC", "CNY", "USD"])
 # feedSources["btcid"]    = feedsources.BitcoinIndonesia(allowFailure=True, quotes=["BTS"], bases=["BTC"])
-# feedSources["bter"]     = feedsources.Bter(allowFailure=True, quotes=["BTC", "BTS"], bases=["BTC", "CNY", "USD"])
+feedSources["bter"]     = feedsources.Bter(allowFailure=True, quotes=["BTC", "BTS", "CNY"], bases=["BTC", "CNY"])
 
 ################################################################################
 # Blame mode allows to verify old published prices

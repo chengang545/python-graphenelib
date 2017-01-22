@@ -76,7 +76,7 @@ change_max                   = 5.0       # Percentage of price change to cause a
 ################################################################################
 _all_assets = ["BTC", "SILVER", "GOLD", "TRY", "SGD", "HKD", "NZD",
                "CNY", "MXN", "CAD", "CHF", "AUD", "GBP", "JPY", "EUR", "USD",
-               "KRW", "TUSD" , "CASH.USD" , "CASH.BTC", "ARS", "ALTCAP"]  # "SHENZHEN", "HANGSENG", "NASDAQC", "NIKKEI", "RUB", "SEK"
+               "KRW", "TUSD" , "CASH.USD" , "CASH.BTC", "ARS", "ALTCAP", "GOLOS"]  # "SHENZHEN", "HANGSENG", "NASDAQC", "NIKKEI", "RUB", "SEK"
 _bases = ["CNY", "USD", "BTC", "EUR", "HKD", "JPY"]
 
 asset_config = {"default" : {  # DEFAULT BEHAVIOR
@@ -103,7 +103,7 @@ asset_config = {"default" : {  # DEFAULT BEHAVIOR
                                  "poloniex",
                                  "bittrex",
                                  "btc38",
-                                 "bter",
+                                 #"bter",
                                  "yunbi",
                                  "bitshares",
                                  # ## BTC/* exchanges
@@ -132,20 +132,21 @@ asset_config = {"default" : {  # DEFAULT BEHAVIOR
                     "sources" : ["poloniex",
                                  "bittrex",
                                  "btc38",
-                                 "bter",
+                                 #"bter",
                                  "yunbi",
                                  ],
                 },
                 
-                # Adding GRIDCOIN MPA
-                # CCEX currently not supported
-                #"GRIDCOIN" : {
-                #    "metric" : "weighted",
-                #    "sources" : ["poloniex",
+                # Adding GOLOS MPA
+                # poloniex & CCEX currently not supported
+                "GOLOS" : {
+                    "metric" : "weighted",
+                    "sources" : [#"poloniex",
                                  #"ccex",
-                #                 "bittrex"
-                #                 ],
-                #},
+                                 "coinmarketcap",
+                                 "bittrex"
+                                 ],
+                },
                 # Settings for CNY take popular chinese exchanges into
                 # account that let people trade without fees.
                 # Hence, the metric should be median, since the volume could
@@ -156,7 +157,7 @@ asset_config = {"default" : {  # DEFAULT BEHAVIOR
                                  "yunbi",
                                  "huobi",
                                  "btcchina",
-                                 "bter",
+                                 #"bter",
                                  "okcoin",
                                  ]
                 },
@@ -248,7 +249,7 @@ feedSources["poloniex"] = feedsources.Poloniex(allowFailure=True,
                                               bases=["BTC"])
 #feedSources["ccedk"]    = feedsources.Ccedk(allowFailure=True, quotes=["BTS"], bases=["BTC", "USD", "EUR", "CNY"])
 feedSources["bittrex"]  = feedsources.Bittrex(allowFailure=True,
-                                              quotes=["BTS"],
+                                              quotes=["BTS", "GOLOS"],
                                               bases=["BTC"])
 feedSources["yunbi"]    = feedsources.Yunbi(allowFailure=True, quotes=["BTS", "BTC"], bases=["CNY"])
 feedSources["btc38"]    = feedsources.Btc38(allowFailure=True, quotes=["BTS", "BTC"], bases=["BTC", "CNY"])
@@ -315,18 +316,18 @@ feedSources["huobi"]    = feedsources.Huobi(allowFailure=True, quotes=["BTC"], b
                                                                   #~ allowFailure=True,
                                                                   #~ quotes=["BTC", "CNY", "EUR", "GBP", "JPY"], # , "XAU", "XAG" more available
                                                                   #~ bases=["USD"]) # only USD with free subscription
-feedSources["coinmarketcap"]    = feedsources.CoinmarketcapAltcap(quotes=["ALTCAP"],
-                                                                  bases=["BTC", "BTS"],
+feedSources["coinmarketcap"]    = feedsources.CoinmarketcapAltcap(quotes=["ALTCAP", "GOLOS"],
+                                                                  bases=["BTC"],
                                                                   allowFailure=True)
 feedSources["coincap"]    = feedsources.CoincapAltcap(quotes=["ALTCAP"],
-                                                      bases=["BTC", "BTS"],
+                                                      bases=["BTC"],
                                                       allowFailure=True)
 # feedSources["fixer"] = feedsources.Fixer(allowFailure=True, quotes=["EUR", "GBP", "CNY", "USD"], bases=["EUR", "GBP", "USD"]) # more available
 # feedSources["bitcoinvenezuela"] = feedsources.BitcoinVenezuela(allowFailure=True, quotes=["EUR", "USD", "VEF", "ARS", "BTC", "LTC"], bases=["BTC", "LTC", "USD"])
 # feedSources["btcid"]    = feedsources.BitcoinIndonesia(allowFailure=True, quotes=["BTS"], bases=["BTC"])
 # feedSources["bter"]     = feedsources.Bter(allowFailure=True, quotes=["BTC", "BTS"], bases=["BTC", "CNY", "USD"])
 # feedSources["btcid"]    = feedsources.BitcoinIndonesia(allowFailure=True, quotes=["BTS"], bases=["BTC"])
-feedSources["bter"]     = feedsources.Bter(allowFailure=True, quotes=["BTC", "BTS", "CNY"], bases=["BTC", "CNY"])
+# feedSources["bter"]     = feedsources.Bter(allowFailure=True, quotes=["BTC", "BTS", "CNY"], bases=["BTC", "CNY"])
 
 ################################################################################
 # Blame mode allows to verify old published prices

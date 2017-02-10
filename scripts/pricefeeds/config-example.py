@@ -102,14 +102,14 @@ asset_config = {"default" : {  # DEFAULT BEHAVIOR
                                  # BTC/BTS exchanges (include BTC/* if available)
                                  "poloniex",
                                  "bittrex",
-                                 "btc38",
+                                 #"btc38",
                                  #"bter",
-                                 "yunbi",
+                                 #"yunbi",
                                  "bitshares",
                                  # ## BTC/* exchanges
-                                 # "okcoin",   # no trading-fees
-                                 # "btcchina", # no trading-fees
-                                 # "huobi",    # no trading-fees
+                                 #"okcoin",   # trading suspended by a bank!
+                                 #"btcchina", # trading suspended by a bank!
+                                 #"huobi",    # trading suspended by a bank!
                                  ],
                     # Core exchange factor for paying transaction fees in
                     # non-BTS assets. This is a factor: 0.95 = 95%
@@ -131,9 +131,9 @@ asset_config = {"default" : {  # DEFAULT BEHAVIOR
                     "metric" : "weighted",
                     "sources" : ["poloniex",
                                  "bittrex",
-                                 "btc38",
+                                 #"btc38",
                                  #"bter",
-                                 "yunbi",
+                                 #"yunbi",
                                  ],
                 },
                 
@@ -158,8 +158,9 @@ asset_config = {"default" : {  # DEFAULT BEHAVIOR
                                  "huobi",
                                  "btcchina",
                                  #"bter",
+                                 "quandl",
                                  "okcoin",
-                                 ]
+                                 ],
                 },
                 #
                 # As requested by the issuer, the squeere ratio should be
@@ -180,7 +181,8 @@ asset_config = {"default" : {  # DEFAULT BEHAVIOR
                                  "coinmarketcap",
                                  "poloniex",
                                  "bittrex",
-                                 "btc38",]
+                                 "btc38",
+                                 ],
                 },
                 #~ "ALTCAP.X" : {
                     #~ "metric" : "weighted",
